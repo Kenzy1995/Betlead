@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Facebook Login Page</title>
+<title>Follow Us on Facebook</title>
 <style>
     body, html {
         height: 100%;
@@ -11,33 +11,23 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #3b5998;
+        background-color: #3b5998; /* Facebook 蓝 */
     }
 
     .container {
         text-align: center;
-        background: white;
         padding: 40px;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        color: white;
         width: 300px;
     }
 
     .logo {
-        font-size: 40px;
-        color: #3b5998;
-    }
-
-    .text {
-        margin-top: 20px;
-        color: #333;
-        font-size: 20px;
-        line-height: 1.5;
+        font-size: 60px;
+        margin-bottom: 20px;
     }
 
     .button {
-        margin-top: 20px;
-        background-color: #3b5998;
+        background-color: #ff6b6b; /* 淡红色 */
         color: white;
         border: none;
         outline: none;
@@ -45,22 +35,25 @@
         font-size: 18px;
         border-radius: 5px;
         cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
     }
 </style>
 </head>
 <body>
 <div class="container">
     <div class="logo">f</div>
-    <div class="text">Follow us on Facebook</div>
-    <button class="button" onclick="FBLogin();">Login with Facebook</button>
+    Follow Us on Facebook
+    <button class="button" onclick="FBLogin();">Join Now</button>
+    <button class="button" onclick="FBLogout();">Log Out</button>
+    <button class="button" onclick="redirectToTelegram();">Back to TG</button>
 </div>
 
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
-    // Initialize the Facebook SDK
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '1279118876145836', // Replace 'YOUR_APP_ID' with your actual app ID
+            appId      : '1279118876145836', // 使用您的 Facebook App ID
             cookie     : true,
             xfbml      : true,
             version    : 'v4.0'
@@ -70,14 +63,22 @@
     function FBLogin() {
         FB.login(function(response) {
             if (response.authResponse) {
-                console.log('Welcome! Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Good to see you, ' + response.name + '.');
-                });
+                console.log('Facebook login succeeded');
             } else {
-                console.log('User cancelled login or did not fully authorize.');
+                console.log('Facebook login failed');
             }
         }, {scope: 'email,public_profile'});
+    }
+
+    function FBLogout() {
+        FB.logout(function(response) {
+            // 用户现在已登出
+            console.log('Facebook logout succeeded');
+        });
+    }
+
+    function redirectToTelegram() {
+        window.location.href = 'https://t.me/BetLeadPH_Bot'; // 将用户导向 Telegram 机器人
     }
 </script>
 </body>
