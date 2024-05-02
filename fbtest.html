@@ -31,8 +31,8 @@
     }
 
     .button {
-        background-color: #ff6b6b; /* 淡红色 */
-        color: white;
+        background-color: transparent;
+        color: transparent;
         border: none;
         outline: none;
         padding: 10px 20px;
@@ -42,15 +42,37 @@
         width: 100%;
         margin-top: 10px;
     }
+
+    #button1 {
+        background-image: url('https://i.imgur.com/9MOVJTZ.png');
+        background-size: cover;
+    }
+
+    #button2 {
+        background-image: url('https://i.imgur.com/347fVNi.png');
+        background-size: cover;
+    }
+
+    #button3 {
+        background-image: url('https://i.imgur.com/BtJgKuj.png');
+        background-size: cover;
+    }
+
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* 設定按鈕間的間隔 */
+    }
 </style>
 </head>
 <body>
 <div class="container">
     <div class="logo">f</div>
-    Follow Us on Facebook
-    <button class="button" onclick="FBLogin();">Join Now</button>
-    <button class="button" onclick="FBLogout();">Log Out</button>
-    <button class="button" onclick="redirectToTelegram();">Back to TG</button>
+    <div class="buttons-container">
+        <button id="button1" class="button" onclick="FBLogin();"></button>
+        <button id="button2" class="button" onclick="FBLogout();"></button>
+        <button id="button3" class="button" onclick="redirectToTelegram();"></button>
+    </div>
 </div>
 
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
