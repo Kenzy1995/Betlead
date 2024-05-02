@@ -11,50 +11,51 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: url('https://pasteboard.co/HEngbwxj58HW.png') no-repeat center center fixed;
+        background: url('https://pasteboard.co/1reX2yBYgESp.png') no-repeat center center fixed; 
         background-size: cover;
     }
 
     .container {
-        text-align: center;
-        padding: 40px;
-        color: white;
-        width: 300px;
-    }
-
-    .logo {
-        font-size: 60px;
-        margin-bottom: 20px;
+        width: 320px; /* 设置为适合图像的宽度 */
+        height: 640px; /* 设置为适合图像的高度 */
+        position: relative; /* 用于定位内部按钮 */
     }
 
     .button {
-        background-color: transparent;
-        background-size: cover;
-        color: white;
+        width: 260px; /* 按钮宽度 */
+        height: 48px; /* 按钮高度 */
+        background-size: contain;
         border: none;
-        outline: none;
-        padding: 10px 20px;
-        font-size: 18px;
-        border-radius: 5px;
         cursor: pointer;
-        width: 100%;
-        margin-top: 10px;
-        height: 50px;
-        text-indent: -9999px;
+        position: absolute;
+        background-repeat: no-repeat;
     }
 
-    .button-login { background-image: url('https://pasteboard.co/iDwqNqJKclMU.png'); }
-    .button-logout { background-image: url('https://pasteboard.co/4G0ybafXYeCC.png'); }
-    .button-telegram { background-image: url('https://pasteboard.co/Uy2xEu7NzJdQ.png'); }
+    .button-login {
+        background-image: url('https://pasteboard.co/Uy2xEu7NzJdQ.png');
+        top: 480px; /* 调整为按钮在容器中的位置 */
+        left: 30px; /* 水平位置调整 */
+    }
+
+    .button-logout {
+        background-image: url('https://pasteboard.co/enKIUqN105eT.png');
+        top: 530px;
+        left: 30px;
+    }
+
+    .button-back {
+        background-image: url('https://pasteboard.co/XDaAFawgj49f.png');
+        top: 580px;
+        left: 30px;
+    }
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="logo">f</div>
-    Follow Us on Facebook
+    <!-- 按钮具体位置需要根据实际图像进行调整 -->
     <button class="button button-login" onclick="FBLogin();"></button>
     <button class="button button-logout" onclick="FBLogout();"></button>
-    <button class="button button-telegram" onclick="redirectToTelegram();"> </button>
+    <button class="button button-back" onclick="redirectToTelegram();"></button>
 </div>
 
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
