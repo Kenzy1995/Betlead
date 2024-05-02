@@ -4,31 +4,38 @@
     <meta charset="utf-8" />
     <style>
         body {
-            background-color: #f4f4f9; /* 設定背景顏色 */
+            background-color: #f4f4f9; /* 頁面的背景色，如需要其他顏色或圖片，可以在這裡修改 */
             font-family: Arial, sans-serif; /* 使用無襯線字體 */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
         .button {
-            padding: 10px 20px;
+            padding: 10px 25px;
             margin: 10px;
-            background-color: #4CAF50; /* 按鈕背景色 */
-            color: white; /* 文字顏色 */
-            border: none;
-            border-radius: 5px; /* 圓角效果 */
+            background-color: #fff; /* 白色背景 */
+            color: #4267B2; /* Facebook藍色字體 */
+            border: 2px solid #4267B2; /* 藍色邊框 */
+            border-radius: 20px; /* 圓角邊框 */
             cursor: pointer; /* 滑鼠指針變化 */
+            font-weight: bold;
+            width: 200px; /* 設定寬度 */
+            text-align: center; /* 文字居中 */
+            transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
+        }
+        .button:hover {
+            background-color: #4267B2; /* 滑鼠懸停時變為藍底 */
+            color: #fff; /* 滑鼠懸停時文字變白 */
         }
     </style>
 </head>
 <body>
-    <div>
-        <button class="button" onclick="FBLogin();">Connect</button>
-        <button class="button" onclick="Del_FB_App();">LOGOUT</button>
-        <button class="button" onclick="window.location.href='https://t.me/BetLeadPH_Promotion_Bot';">Go to Telegram Bot</button>
-    </div>
+    <button class="button" onclick="FBLogin();">Connect</button>
+    <button class="button" onclick="Del_FB_App();">Sign out</button>
+    <button class="button" onclick="window.location.href='https://t.me/BetLeadPH_Promotion_Bot';">Back to TG</button>
     <div id="content"></div>
     <script type="text/javascript">
         let FB_appID = "1279118876145836";
@@ -52,11 +59,9 @@
 
         function FBLogin() {
             FB.getLoginStatus(function (res) {
-                console.log(`status:${res.status}`);
-                if (res.status === "connected") { 
-                    console.log("用戶已授權您的App，請先撤除App授權後再重新授權");
+                if (res.status === "connected") {
                     GetProfile();
-                } else if (res.status === 'not_authorized' || res.status === "unknown") {
+                } else {
                     FB.login(function (response) {
                         if (response.status === 'connected') {
                             GetProfile();
@@ -81,10 +86,8 @@
 
         function Del_FB_App() {
             FB.getLoginStatus(function (response) {
-                console.log(response);
                 if (response.status === 'connected') {
                     FB.api("/me/permissions", "DELETE", function (response) {
-                        console.log("刪除結果", response);
                         FB.getLoginStatus(function (res) { }, true);
                     });
                 } else { 
