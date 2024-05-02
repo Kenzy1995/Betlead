@@ -87,12 +87,20 @@
         function Del_FB_App() {
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
-                    FB.api("/me/permissions", "DELETE", function (response) {
-                        FB.getLoginStatus(function (res) { }, true);
-                        alert('App disconnected');
+                    // 用戶已經登入，現在執行登出
+                    FB.logout(function (response) {
+                        if (response.status === 'unknown') {
+                            // 當用戶登出後，FB.logout 將更新用戶狀態為 'unknown'
+                            console.log("You are now logged out.");
+                            alert('You have been logged out.'); // 顯示登出成功的提示
+                        } else {
+                            console.log("Error during logout.");
+                            alert('Error during logout.'); // 登出過程中發生錯誤的提示
+                        }
                     });
-                } else { 
-                    console.log("No FB App to disconnect.");
+                } else {
+                    console.log("No user currently logged in."); // 沒有用戶登入
+                    alert("No user currently logged in."); // 提示目前沒有用戶登入
                 }
             });
         }
