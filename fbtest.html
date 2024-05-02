@@ -6,7 +6,7 @@
         body {
             background-image: url('https://i.imgur.com/Dsgdfz6.png'); /* 在此處填入你的背景圖片URL */
             background-size: cover; /* 背景圖片覆蓋整個頁面 */
-            font-family: Arial, sans-serif; /* 使用無襯線字體 */
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -16,20 +16,20 @@
         }
         .button {
             padding: 10px 25px;
-            margin: 5px 0; /* 調整上下間距 */
-            background-color: #fff; /* 白色背景 */
-            color: #4267B2; /* Facebook藍色字體 */
-            border: 2px solid #4267B2; /* 藍色邊框 */
-            border-radius: 20px; /* 圓角邊框 */
-            cursor: pointer; /* 滑鼠指針變化 */
+            margin: 5px 0;
+            background-color: #fff;
+            color: #4267B2;
+            border: 2px solid #4267B2;
+            border-radius: 20px;
+            cursor: pointer;
             font-weight: bold;
-            width: 150px; /* 設定寬度 */
-            text-align: center; /* 文字居中 */
-            transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
+            width: 150px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
         }
         .button:hover {
-            background-color: #4267B2; /* 滑鼠懸停時變為藍底 */
-            color: #fff; /* 滑鼠懸停時文字變白 */
+            background-color: #4267B2;
+            color: #fff;
         }
     </style>
 </head>
@@ -59,29 +59,29 @@
         };
 
         function FBLogin() {
-            FB.getLoginStatus(function (res) {
-                if (res.status === "connected") {
-                    GetProfile();
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    checkPageFollow();
                 } else {
-                    FB.login(function (response) {
-                        if (response.status === 'connected') {
-                            GetProfile();
-                        } else {
-                            alert("Facebook帳號無法登入");
-                        }
-                    }, { scope: 'email' });
+                    alert("Unable to authenticate with Facebook.");
+                }
+            }, { scope: 'public_profile,user_posts' });
+        }
+
+        function checkPageFollow() {
+            FB.api('/me/likes/YourPageID', function(response) {
+                if (response && response.data && response.data.length > 0) {
+                    alert("You are following the page.");
+                    checkPosts();
+                } else {
+                    alert("Please follow the page to continue.");
                 }
             });
         }
 
-        function GetProfile() {
-            document.getElementById('content').innerHTML = "";
-            FB.api("/me", "GET", { fields: 'last_name,first_name,name,email' }, function (user) {
-                if (user.error) {
-                    console.log(user.error);
-                } else {
-                    document.getElementById('content').innerHTML = JSON.stringify(user);
-                }
+        function checkPosts() {
+            FB.api('/me/posts', function(response) {
+                // Logic to check for posts sharing and tagging
             });
         }
 
