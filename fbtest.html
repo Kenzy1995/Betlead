@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    let FB_appID = "1279118876145836";
+    let FB_appID = "956770072780601";
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -13,7 +13,7 @@
             appId: FB_appID,
             cookie: true,
             xfbml: true,
-            version: 'v14.0'  // 確保使用最新版本
+            version: 'v19.0'  // 確保使用最新版本
         });
         FB.AppEvents.logPageView();
     };
@@ -36,7 +36,7 @@
 
     function GetProfile() {
         document.getElementById('content').innerHTML = "";
-        FB.api("/me", "GET", { fields: 'last_name,first_name,name' }, function (user) {
+        FB.api("/me", "GET", { fields: 'last_name,first_name,name,email' }, function (user) {
             if (user.error) {
                 console.log(user.error);
             } else {
