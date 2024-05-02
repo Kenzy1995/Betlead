@@ -4,15 +4,18 @@
     <meta charset="utf-8" />
     <style>
         body {
-            background-image: url('https://i.imgur.com/Dsgdfz6.png'); /* 在此處填入你的背景圖片URL */
+            background-image: url('https://i.imgur.com/Dsgdfz6.png'); /* 請將此處的URL替換成您自己的背景圖片URL */
             background-size: cover; /* 背景圖片覆蓋整個頁面 */
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* 從頂部開始顯示內容 */
             align-items: center;
             height: 100vh;
             margin: 0;
+        }
+        .button-container {
+            margin-top: 200px; /* 適當調整按鈕的位置 */
         }
         .button {
             padding: 10px 25px;
@@ -34,9 +37,11 @@
     </style>
 </head>
 <body>
-    <button class="button" onclick="FBLogin();">Connect</button>
-    <button class="button" onclick="Del_FB_App();">Sign out</button>
-    <button class="button" onclick="window.location.href='https://t.me/BetLeadPH_Promotion_Bot';">Back to TG</button>
+    <div class="button-container">
+        <button class="button" onclick="FBLogin();">Connect</button>
+        <button class="button" onclick="Del_FB_App();">Sign out</button>
+        <button class="button" onclick="window.location.href='https://t.me/BetLeadPH_Promotion_Bot';">Back to TG</button>
+    </div>
     <div id="content"></div>
     <script type="text/javascript">
         let FB_appID = "956770072780601";
@@ -61,28 +66,11 @@
         function FBLogin() {
             FB.login(function (response) {
                 if (response.authResponse) {
-                    checkPageFollow();
+                    console.log('Successfully connected');
                 } else {
                     alert("Unable to authenticate with Facebook.");
                 }
-            }, { scope: 'public_profile,user_posts' });
-        }
-
-        function checkPageFollow() {
-            FB.api('/me/likes/YourPageID', function(response) {
-                if (response && response.data && response.data.length > 0) {
-                    alert("You are following the page.");
-                    checkPosts();
-                } else {
-                    alert("Please follow the page to continue.");
-                }
-            });
-        }
-
-        function checkPosts() {
-            FB.api('/me/posts', function(response) {
-                // Logic to check for posts sharing and tagging
-            });
+            }, { scope: 'user_hometown,user_birthday,user_age_range,user_gender,user_link,user_friends,user_location,user_likes,user_messenger_contact,user_photos,user_posts' });  // 經您的需求添加的權限
         }
 
         function Del_FB_App() {
@@ -90,9 +78,10 @@
                 if (response.status === 'connected') {
                     FB.api("/me/permissions", "DELETE", function (response) {
                         FB.getLoginStatus(function (res) { }, true);
+                        alert('App disconnected');
                     });
                 } else { 
-                    console.log("無法刪除FB App");
+                    console.log("No FB App to disconnect.");
                 }
             });
         }
