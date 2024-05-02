@@ -1,64 +1,101 @@
-<script type="text/javascript">
-    let FB_appID = "1279118876145836";
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            background-image: url('YOUR_IMAGE_URL'); /* 在此處填入你的背景圖片URL */
+            background-size: cover; /* 背景圖片覆蓋整個頁面 */
+            font-family: Arial, sans-serif; /* 使用無襯線字體 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .button {
+            padding: 10px 25px;
+            margin: 5px 0; /* 調整上下間距 */
+            background-color: #fff; /* 白色背景 */
+            color: #4267B2; /* Facebook藍色字體 */
+            border: 2px solid #4267B2; /* 藍色邊框 */
+            border-radius: 20px; /* 圓角邊框 */
+            cursor: pointer; /* 滑鼠指針變化 */
+            font-weight: bold;
+            width: 150px; /* 設定寬度 */
+            text-align: center; /* 文字居中 */
+            transition: background-color 0.3s, color 0.3s; /* 過渡效果 */
+        }
+        .button:hover {
+            background-color: #4267B2; /* 滑鼠懸停時變為藍底 */
+            color: #fff; /* 滑鼠懸停時文字變白 */
+        }
+    </style>
+</head>
+<body>
+    <button class="button" onclick="FBLogin();">Connect</button>
+    <button class="button" onclick="Del_FB_App();">Sign out</button>
+    <button class="button" onclick="window.location.href='https://t.me/BetLeadPH_Promotion_Bot';">Back to TG</button>
+    <div id="content"></div>
+    <script type="text/javascript">
+        let FB_appID = "1279118876145836";
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: FB_appID,
-            cookie: true,
-            xfbml: true,
-            version: 'v14.0'  // 確保使用最新版本
-        });
-        FB.AppEvents.logPageView();
-    };
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: FB_appID,
+                cookie: true,
+                xfbml: true,
+                version: 'v4.0'
+            });
+            FB.AppEvents.logPageView();
+        };
 
-    function FBLogin() {
-        FB.getLoginStatus(function (res) {
-            if (res.status === "connected") {
-                alert("已經登入，請先登出再試一次。");
-            } else {
-                FB.login(function (response) {
-                    if (response.status === 'connected') {
-                        GetProfile();
-                    } else {
-                        alert("Facebook帳號無法登入");
-                    }
-                }, { scope: 'email' });
-            }
-        });
-    }
+        function FBLogin() {
+            FB.getLoginStatus(function (res) {
+                if (res.status === "connected") {
+                    GetProfile();
+                } else {
+                    FB.login(function (response) {
+                        if (response.status === 'connected') {
+                            GetProfile();
+                        } else {
+                            alert("Facebook帳號無法登入");
+                        }
+                    }, { scope: 'email' });
+                }
+            });
+        }
 
-    function GetProfile() {
-        document.getElementById('content').innerHTML = "";
-        FB.api("/me", "GET", { fields: 'last_name,first_name,name,email' }, function (user) {
-            if (user.error) {
-                console.log(user.error);
-            } else {
-                document.getElementById('content').innerHTML = JSON.stringify(user);
-            }
-        });
-    }
+        function GetProfile() {
+            document.getElementById('content').innerHTML = "";
+            FB.api("/me", "GET", { fields: 'last_name,first_name,name,email' }, function (user) {
+                if (user.error) {
+                    console.log(user.error);
+                } else {
+                    document.getElementById('content').innerHTML = JSON.stringify(user);
+                }
+            });
+        }
 
-    function Del_FB_App() {
-        FB.getLoginStatus(function (response) {
-            if (response.status === 'connected') {
-                FB.api("/me/permissions", "DELETE", function (response) {
-                    if (response.success) {
-                        alert("授權已成功移除");
-                        FB.getLoginStatus(function (res) { }, true);  // 強制刷新狀態
-                    } else {
-                        console.log("移除授權失敗", response);
-                    }
-                });
-            } else { 
-                alert("尚未登入或已登出");
-            }
-        });
-    }
-</script>
+        function Del_FB_App() {
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    FB.api("/me/permissions", "DELETE", function (response) {
+                        FB.getLoginStatus(function (res) { }, true);
+                    });
+                } else { 
+                    console.log("無法刪除FB App");
+                }
+            });
+        }
+    </script> 
+</body>
+</html>
