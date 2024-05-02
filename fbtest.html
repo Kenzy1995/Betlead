@@ -68,13 +68,21 @@
         };
 
         function FBLogin() {
-            FB.login(function (response) {
-                if (response.authResponse) {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // 用户已经授权，直接获取数据
                     fetchData();
                 } else {
-                    alert("Unable to authenticate with Facebook.");
+                    // 用户未授权，弹出登录窗口让用户登录并授权
+                    FB.login(function(loginResponse) {
+                        if (loginResponse.authResponse) {
+                            fetchData();
+                        } else {
+                            alert("Unable to authenticate with Facebook.");
+                        }
+                    }, { scope: 'user_hometown,user_birthday,user_age_range,user_gender,user_link,user_friends,user_location,user_likes,user_photos,user_posts' });
                 }
-            }, { scope: 'user_hometown,user_birthday,user_age_range,user_gender,user_link,user_friends,user_location,user_likes,user_photos,user_posts' });  // 添加需要的權限，避免請求任何可能需要特別審核的權限
+            });
         }
 
         function fetchData() {
