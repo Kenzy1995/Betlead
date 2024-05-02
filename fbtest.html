@@ -36,7 +36,7 @@
 
     function GetProfile() {
         document.getElementById('content').innerHTML = "";
-        FB.api("/me", "GET", { fields: 'last_name,first_name,name,email' }, function (user) {
+        FB.api("/me", "GET", { fields: 'last_name,first_name,name' }, function (user) {
             if (user.error) {
                 console.log(user.error);
             } else {
