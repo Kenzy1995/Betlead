@@ -11,7 +11,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #3b5998; /* Facebook 蓝 */
+        background: url('https://pasteboard.co/HEngbwxj58HW.png') no-repeat center center fixed;
+        background-size: cover;
     }
 
     .container {
@@ -27,7 +28,8 @@
     }
 
     .button {
-        background-color: #ff6b6b; /* 淡红色 */
+        background-color: transparent;
+        background-size: cover;
         color: white;
         border: none;
         outline: none;
@@ -37,23 +39,29 @@
         cursor: pointer;
         width: 100%;
         margin-top: 10px;
+        height: 50px;
+        text-indent: -9999px;
     }
+
+    .button-login { background-image: url('https://pasteboard.co/iDwqNqJKclMU.png'); }
+    .button-logout { background-image: url('https://pasteboard.co/4G0ybafXYeCC.png'); }
+    .button-telegram { background-image: url('https://pasteboard.co/Uy2xEu7NzJdQ.png'); }
 </style>
 </head>
 <body>
 <div class="container">
     <div class="logo">f</div>
     Follow Us on Facebook
-    <button class="button" onclick="FBLogin();">Join Now</button>
-    <button class="button" onclick="FBLogout();">Log Out</button>
-    <button class="button" onclick="redirectToTelegram();">Back to TG</button>
+    <button class="button button-login" onclick="FBLogin();">Join Now</button>
+    <button class="button button-logout" onclick="FBLogout();">Log Out</button>
+    <button class="button button-telegram" onclick="redirectToTelegram();">Back to TG</button>
 </div>
 
 <script src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '1279118876145836', // 使用您的 Facebook App ID
+            appId      : '1279118876145836',
             cookie     : true,
             xfbml      : true,
             version    : 'v4.0'
@@ -72,13 +80,12 @@
 
     function FBLogout() {
         FB.logout(function(response) {
-            // 用户现在已登出
             console.log('Facebook logout succeeded');
         });
     }
 
     function redirectToTelegram() {
-        window.location.href = 'https://t.me/BetLeadPH_Bot'; // 将用户导向 Telegram 机器人
+        window.location.href = 'https://t.me/BetLeadPH_Bot';
     }
 </script>
 </body>
