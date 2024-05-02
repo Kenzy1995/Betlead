@@ -4,28 +4,36 @@
 <meta charset="UTF-8">
 <title>手機應用WEB頁面</title>
 <style>
-    body {
-        background-image: url('https://i.imgur.com/Dsgdfz6.png'); /* 背景圖 */
-        background-size: cover;
-        height: 100vh;
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        background-color: #f0f0f0; /* 背景顏色 */
     }
     .button {
-        margin: 10px;
+        background-color: #007BFF; /* 按鈕顏色 */
+        color: white; /* 文字顏色 */
         border: none;
-        width: 200px; /* 可根據實際情況調整大小 */
-        height: 50px; /* 可根據實際情況調整大小 */
-        background-size: cover;
+        border-radius: 5px; /* 圓角邊框 */
+        width: 60%; /* 按鈕寬度為畫面的60% */
+        height: 33%; /* 按鈕高度為畫面的33% */
+        font-size: 1.5em; /* 文字大小 */
         cursor: pointer;
+        margin: 10px 0; /* 上下間距 */
+        transition: background-color 0.3s; /* 按鈕點擊效果 */
+    }
+    .button:hover {
+        background-color: #0056b3; /* 滑鼠懸停時的按鈕顏色變化 */
     }
 </style>
 </head>
 <body>
-    <button class="button" style="background-image: url('https://i.imgur.com/9MOVJTZ.png');"></button>
-    <button class="button" style="background-image: url('https://i.imgur.com/347fVNi.png');"></button>
-    <button class="button" style="background-image: url('https://i.imgur.com/BtJgKuj.png');"></button>
+    <button class="button">按鈕1</button>
+    <button class="button">按鈕2</button>
+    <button class="button">按鈕3</button>
 </body>
 </html>
