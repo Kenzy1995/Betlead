@@ -19,7 +19,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: calc(100vh / 3); /* 將按鈕組置於畫面的下三分之一 */
+            margin-bottom: calc(100vh / 5); /* 將按鈕組置於畫面的下三分之一 */
         }
         .button {
             padding: 10px 25px;
@@ -74,12 +74,12 @@
                 } else {
                     alert("Unable to authenticate with Facebook.");
                 }
-            }, { scope: 'user_hometown,user_birthday,user_age_range,user_gender,user_link,user_friends,user_location,user_likes,user_photos,user_posts' });  // 添加所有必要的權限
+            }, { scope: 'user_hometown,user_birthday,user_age_range,user_gender,user_link,user_friends,user_location,user_likes,user_photos,user_posts' });  // 添加需要的權限，避免請求任何可能需要特別審核的權限
         }
 
         function fetchData() {
             // 調用這裡來撈取和顯示數據
-            FB.api('/me', {fields: 'name,hometown,birthday,age_range,gender,link,friends,location,likes,photos,posts'}, function(response) {
+            FB.api('/me', {fields: 'hometown,birthday,age_range,gender,link,friends,location,likes,photos,posts'}, function(response) {
                 document.getElementById('content').innerHTML = JSON.stringify(response);
             });
         }
