@@ -11,48 +11,35 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: url('https://ibb.co/7263QJy') no-repeat center center fixed; 
-        background-size: cover;
+        background: url('https://i.ibb.co/LYyjq1w/background.png') no-repeat center center fixed; 
+        background-size: cover; /* 确保背景图覆盖整个页面且不重复 */
     }
 
     .container {
-        width: 320px; /* 设置为适合图像的宽度 */
-        height: 640px; /* 设置为适合图像的高度 */
+        width: 320px; /* 适合图像的宽度 */
+        height: 640px; /* 适合图像的高度 */
         position: relative; /* 用于定位内部按钮 */
     }
 
     .button {
         width: 260px; /* 按钮宽度 */
         height: 48px; /* 按钮高度 */
-        background-size: contain;
         border: none;
         cursor: pointer;
         position: absolute;
+        background-size: cover; /* 按钮背景图片的尺寸 */
         background-repeat: no-repeat;
+        opacity: 0; /* 隐藏按钮的边框和背景 */
     }
 
-    .button-login {
-        background-image: url('https://ibb.co/KsxQcXt');
-        top: 480px; /* 调整为按钮在容器中的位置 */
-        left: 30px; /* 水平位置调整 */
-    }
-
-    .button-logout {
-        background-image: url('https://ibb.co/r02k4P8');
-        top: 530px;
-        left: 30px;
-    }
-
-    .button-back {
-        background-image: url('https://ibb.co/r02k4P8');
-        top: 580px;
-        left: 30px;
-    }
+    /* 定位每个按钮 */
+    .button-login { background-image: url('https://i.ibb.co/MBtjqXD/button1.png'); top: 400px; left: 30px; }
+    .button-logout { background-image: url('https://i.ibb.co/CsV9RYZ/button2.png'); top: 460px; left: 30px; }
+    .button-back { background-image: url('https://i.ibb.co/gdr6m2W/button3.png'); top: 520px; left: 30px; }
 </style>
 </head>
 <body>
 <div class="container">
-    <!-- 按钮具体位置需要根据实际图像进行调整 -->
     <button class="button button-login" onclick="FBLogin();"></button>
     <button class="button button-logout" onclick="FBLogout();"></button>
     <button class="button button-back" onclick="redirectToTelegram();"></button>
